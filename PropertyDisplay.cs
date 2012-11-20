@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace PSUTools
 {
 	/// <summary>
-	/// ƒvƒƒpƒeƒB•\¦–¼‚ğŠO•”‚©‚çİ’è‚·‚é‚½‚ß‚Ì‘®«B
+	/// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è¡¨ç¤ºåã‚’å¤–éƒ¨ã‹ã‚‰è¨­å®šã™ã‚‹ãŸã‚ã®å±æ€§ã€‚
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Property)]
 	class PropertyDisplayNameAttribute : Attribute
@@ -27,8 +27,8 @@ namespace PSUTools
 	}
 
 	/// <summary>
-	/// ƒvƒƒpƒeƒB•\¦–¼‚ÅPropertyDisplayPropertyDescriptorƒNƒ‰ƒX‚ğg—p‚·‚é‚½‚ß‚É
-	/// TypeConverter‘®«‚Éw’è‚·‚é‚½‚ß‚ÌTypeConverter”h¶ƒNƒ‰ƒXB
+	/// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£è¡¨ç¤ºåã§PropertyDisplayPropertyDescriptorã‚¯ãƒ©ã‚¹ã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã«
+	/// TypeConverterå±æ€§ã«æŒ‡å®šã™ã‚‹ãŸã‚ã®TypeConverteræ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã€‚
 	/// </summary>
 	public class PropertyDisplayConverter : TypeConverter
 	{
@@ -56,7 +56,7 @@ namespace PSUTools
 	}
 
 	/// <summary>
-	/// ƒvƒƒpƒeƒB‚Ìà–¾iî•ñj‚ğ’ñ‹Ÿ‚·‚éƒNƒ‰ƒXBDisplayName‚ğƒJƒXƒ^ƒ}ƒCƒY‚·‚éB
+	/// ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®èª¬æ˜ï¼ˆï¼æƒ…å ±ï¼‰ã‚’æä¾›ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€‚DisplayNameã‚’ã‚«ã‚¹ã‚¿ãƒã‚¤ã‚ºã™ã‚‹ã€‚
 	/// </summary>
 	public class PropertyDisplayPropertyDescriptor : PropertyDescriptor
 	{

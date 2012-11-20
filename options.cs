@@ -6,34 +6,34 @@ using System.Xml.Serialization;     // XmlSerializer
 namespace S2works.Application
 {
 	/// <summary>
-	/// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Ìİ’è
+	/// ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®è¨­å®š
 	/// </summary>
     public abstract class Options : GlobalizedPropertyGrid.GlobalizedObject
 	{
-        /// <summary>•ÏXƒCƒxƒ“ƒg</summary>
+        /// <summary>å¤‰æ›´ã‚¤ãƒ™ãƒ³ãƒˆ</summary>
         public event EventHandler Changed;
 
-        /// <summary>İ’èƒtƒ@ƒCƒ‹–¼</summary>
+        /// <summary>è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å</summary>
         private string file;
-        /// <summary>İ’èƒtƒ@ƒCƒ‹‚ğ•Û‘¶‚·‚éƒtƒHƒ‹ƒ_–¼</summary>
+        /// <summary>è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã™ã‚‹ãƒ•ã‚©ãƒ«ãƒ€å</summary>
         private string folder;
 
         public Options()
         {
-            // İ’èƒtƒ@ƒCƒ‹–¼
+            // è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å
             file = "options.xml";
 
-            // Application DataƒtƒHƒ‹ƒ_‚ÌƒpƒX
+            // Application Dataãƒ•ã‚©ãƒ«ãƒ€ã®ãƒ‘ã‚¹
             string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            // İ’èƒtƒ@ƒCƒ‹‚ğ•Û‘¶‚·‚éƒtƒHƒ‹ƒ_–¼
+            // è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã™ã‚‹ãƒ•ã‚©ãƒ«ãƒ€å
             folder = appData + Path.DirectorySeparatorChar +
                 System.Windows.Forms.Application.CompanyName + Path.DirectorySeparatorChar +
                 System.Windows.Forms.Application.ProductName;
         }
 
         /// <summary>
-        /// İ’èƒtƒ@ƒCƒ‹–¼
+        /// è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«å
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public string File
@@ -43,7 +43,7 @@ namespace S2works.Application
         }
 
         /// <summary>
-        /// İ’èƒtƒ@ƒCƒ‹‚ğ•Û‘¶‚·‚éƒtƒHƒ‹ƒ_–¼
+        /// è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¿å­˜ã™ã‚‹ãƒ•ã‚©ãƒ«ãƒ€å
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public string Folder
@@ -53,13 +53,13 @@ namespace S2works.Application
         }
 
         /// <summary>
-        /// İ’è‚Ì“Ç‚İ‚İ
+        /// è¨­å®šã®èª­ã¿è¾¼ã¿
         /// </summary>
         public Options Load()
         {
             string filePath = folder + Path.DirectorySeparatorChar + file;
 
-            // ƒCƒ“ƒXƒ^ƒ“ƒX‚Æ“¯‚¶Œ^‚ÌƒIƒuƒWƒFƒNƒg‚ğì‚é(”h¶ƒNƒ‰ƒX‘Îô)
+            // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨åŒã˜å‹ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œã‚‹(æ´¾ç”Ÿã‚¯ãƒ©ã‚¹å¯¾ç­–)
             Type type = this.GetType();
             Options options = (Options)Activator.CreateInstance(type);
 
@@ -77,13 +77,13 @@ namespace S2works.Application
         }
 
         /// <summary>
-        /// İ’è‚Ì•Û‘¶
+        /// è¨­å®šã®ä¿å­˜
         /// </summary>
         public void Save()
         {
             string filePath = folder + Path.DirectorySeparatorChar + file;
 
-            // •Û‘¶ƒtƒHƒ‹ƒ_ì¬
+            // ä¿å­˜ãƒ•ã‚©ãƒ«ãƒ€ä½œæˆ
             if (!Directory.Exists(folder))
             {
                 Directory.CreateDirectory(folder);
@@ -97,9 +97,9 @@ namespace S2works.Application
         }
 
         /// <summary>
-        /// •ÏXƒCƒxƒ“ƒg‚ğ”­¶‚³‚¹‚é
+        /// å¤‰æ›´ã‚¤ãƒ™ãƒ³ãƒˆã‚’ç™ºç”Ÿã•ã›ã‚‹
         /// </summary>
-        /// <param name="e">ƒCƒxƒ“ƒgƒf[ƒ^</param>
+        /// <param name="e">ã‚¤ãƒ™ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿</param>
         protected virtual void OnChanged(EventArgs e)
         {
             if (Changed != null)

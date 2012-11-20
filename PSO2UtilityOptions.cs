@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.ComponentModel;
 using System.Drawing;
@@ -30,6 +30,8 @@ namespace PSO2Utility
 
         /// <summary>ウィンドウの位置</summary>
         private Point windowPosition = new Point(50, 50);
+        /// <summary>ウィンドウのサイズ</summary>
+        private Size windowSize = new Size(0, 0);
 
         public PSO2UtilityOptions()
         {
@@ -98,6 +100,16 @@ namespace PSO2Utility
         {
             get { return windowPosition; }
             set { windowPosition = value; }
+        }
+
+        /// <summary>
+        /// ウィンドウのサイズ
+        /// </summary>
+        [System.Xml.Serialization.XmlIgnore, Browsable(false)]
+        public Size WindowSize
+        {
+            get { return windowSize; }
+            set { windowSize = value; }
         }
 
         /// <summary>

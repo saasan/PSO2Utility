@@ -75,6 +75,26 @@ namespace PSO2Utility
             SWP_ASYNCWINDOWPOS  = 0x4000
         }
 
+        [Flags]
+        public enum ShowWindowFlags : int
+        {
+            SW_HIDE = 0,
+            SW_SHOWNORMAL = 1,
+            SW_NORMAL = 1,
+            SW_SHOWMINIMIZED = 2,
+            SW_SHOWMAXIMIZED = 3,
+            SW_MAXIMIZE = 3,
+            SW_SHOWNOACTIVATE = 4,
+            SW_SHOW = 5,
+            SW_MINIMIZE = 6,
+            SW_SHOWMINNOACTIVE = 7,
+            SW_SHOWNA = 8,
+            SW_RESTORE = 9,
+            SW_SHOWDEFAULT = 10,
+            SW_FORCEMINIMIZE = 11,
+            SW_MAX = 11
+        }
+
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
@@ -85,26 +105,32 @@ namespace PSO2Utility
         }
 
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool IsWindowVisible(IntPtr hWnd);
+        private static extern bool IsWindowVisible(IntPtr hWnd);
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern int GetWindowLong(IntPtr hWnd, GetWindowLongFlags nIndex);
+        private static extern int GetWindowLong(IntPtr hWnd, GetWindowLongFlags nIndex);
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern int SetWindowLong(IntPtr hWnd, GetWindowLongFlags nIndex, int dwNewLong);
+        private static extern int SetWindowLong(IntPtr hWnd, GetWindowLongFlags nIndex, int dwNewLong);
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool AdjustWindowRectEx(ref RECT lpRect, WindowStyleFlags dwStyle, bool bMenu, uint dwExStyle);
+        private static extern bool AdjustWindowRectEx(ref RECT lpRect, WindowStyleFlags dwStyle, bool bMenu, uint dwExStyle);
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, SetWindowPosFlags uFlags);
+        private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, SetWindowPosFlags uFlags);
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
         [DllImport("user32.dll", SetLastError = true)]
-        public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+        private static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindowAsync(IntPtr hWnd, ShowWindowFlags nCmdShow);
+        [DllImport("user32.dll")]
+        private static extern bool IsIconic(IntPtr hWnd);
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ª‘¶İ‚·‚é‚©’²‚×‚é
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒå­˜åœ¨ã™ã‚‹ã‹èª¿ã¹ã‚‹
         /// </summary>
         public static bool Exists(string className)
         {
@@ -112,7 +138,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒVƒXƒeƒ€ƒ{ƒ^ƒ“‚ğ’Ç‰Á
+        /// ã‚·ã‚¹ãƒ†ãƒ ãƒœã‚¿ãƒ³ã‚’è¿½åŠ 
         /// </summary>
         public static void AddSystemButton(IntPtr hWnd)
         {
@@ -122,7 +148,7 @@ namespace PSO2Utility
 
             SetWindowLong(hWnd, GetWindowLongFlags.GWL_STYLE, (int)style);
 
-            // ƒEƒBƒ“ƒhƒE‚ğXV
+            // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’æ›´æ–°
             SetWindowPos(hWnd, IntPtr.Zero, 0, 0, 0, 0,
                     SetWindowPosFlags.SWP_NOMOVE |
                     SetWindowPosFlags.SWP_NOSIZE |
@@ -132,7 +158,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒVƒXƒeƒ€ƒ{ƒ^ƒ“‚ğ’Ç‰Á
+        /// ã‚·ã‚¹ãƒ†ãƒ ãƒœã‚¿ãƒ³ã‚’è¿½åŠ 
         /// </summary>
         public static void AddSystemButton(string className)
         {
@@ -147,7 +173,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ğæ“¾
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’å–å¾—
         /// </summary>
         public static Point GetPosition(IntPtr hWnd)
         {
@@ -162,7 +188,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ğæ“¾
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’å–å¾—
         /// </summary>
         public static Point GetPosition(string className)
         {
@@ -177,7 +203,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ğæ“¾
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã‚’å–å¾—
         /// </summary>
         public static Size GetSize(IntPtr hWnd)
         {
@@ -192,7 +218,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ğæ“¾
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºã‚’å–å¾—
         /// </summary>
         public static Size GetSize(string className)
         {
@@ -207,7 +233,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ÆƒTƒCƒY‚ğİ’è
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã¨ã‚µã‚¤ã‚ºã‚’è¨­å®š
         /// </summary>
         public static void SetPositionAndSize(IntPtr hWnd, Point position, Size size)
         {
@@ -229,7 +255,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ÆƒTƒCƒY‚ğİ’è
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã¨ã‚µã‚¤ã‚ºã‚’è¨­å®š
         /// </summary>
         public static void SetPositionAndSize(string className, Point position, Size size)
         {
@@ -244,7 +270,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ğİ’è
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’è¨­å®š
         /// </summary>
         public static void SetPosition(IntPtr hWnd, Point position)
         {
@@ -256,7 +282,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ğİ’è
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’è¨­å®š
         /// </summary>
         public static void SetPosition(string className, Point position)
         {
@@ -271,7 +297,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒEƒTƒCƒY‚Ì•ÏX‚ğ‹Ö~
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã®å¤‰æ›´ã‚’ç¦æ­¢
         /// </summary>
         public static void NoResize(IntPtr hWnd)
         {
@@ -283,12 +309,12 @@ namespace PSO2Utility
             style &= ~WindowStyleFlags.WS_THICKFRAME;
             SetWindowLong(hWnd, GetWindowLongFlags.GWL_STYLE, (int)style);
 
-            // ƒEƒBƒ“ƒhƒE‚Ì‰‚ğ•ÏX‚·‚é‚ÆƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚ÌƒTƒCƒY‚ª•Ï‚í‚é‚Ì‚ÅA•ÏX‘O‚Æ“¯‚¶‚É‚·‚é
+            // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ç¸ã‚’å¤‰æ›´ã™ã‚‹ã¨ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®ã‚µã‚¤ã‚ºãŒå¤‰ã‚ã‚‹ã®ã§ã€å¤‰æ›´å‰ã¨åŒã˜ã«ã™ã‚‹
             SetPositionAndSize(hWnd, position, size);
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒEƒTƒCƒY‚Ì•ÏX‚ğ‹Ö~
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã®å¤‰æ›´ã‚’ç¦æ­¢
         /// </summary>
         public static void NoResize(string className)
         {
@@ -300,6 +326,33 @@ namespace PSO2Utility
             }
 
             NoResize(hWnd);
+        }
+
+        /// <summary>
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’å‰é¢ã«ã™ã‚‹
+        /// </summary>
+        public static void SetForeground(IntPtr hWnd)
+        {
+            // ãƒ¡ã‚¤ãƒ³ãƒ»ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒæœ€å°åŒ–ã•ã‚Œã¦ã„ã‚Œã°å…ƒã«æˆ»ã™
+            if (IsIconic(hWnd)) ShowWindowAsync(hWnd, ShowWindowFlags.SW_RESTORE);
+
+            // ãƒ¡ã‚¤ãƒ³ãƒ»ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’æœ€å‰é¢ã«è¡¨ç¤ºã™ã‚‹
+            SetForegroundWindow(hWnd);
+        }
+
+        /// <summary>
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’å‰é¢ã«ã™ã‚‹
+        /// </summary>
+        public static void SetForeground(string className)
+        {
+            IntPtr hWnd = FindWindow(className, null);
+
+            if (hWnd == IntPtr.Zero)
+            {
+                throw new WindowNotFoundException();
+            }
+
+            SetForeground(hWnd);
         }
 
         private string className = "";
@@ -332,7 +385,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚Ì•\¦ó‘Ô‚ğ’²‚×‚é
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¡¨ç¤ºçŠ¶æ…‹ã‚’èª¿ã¹ã‚‹
         /// </summary>
         public bool Visible
         {
@@ -340,7 +393,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒVƒXƒeƒ€ƒ{ƒ^ƒ“‚ğ’Ç‰Á
+        /// ã‚·ã‚¹ãƒ†ãƒ ãƒœã‚¿ãƒ³ã‚’è¿½åŠ 
         /// </summary>
         public void AddSystemButton()
         {
@@ -348,23 +401,24 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ğæ“¾
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®
         /// </summary>
-        public Point GetPosition()
+        public Point Position
         {
-            return GetPosition(hWnd);
+            get { return GetPosition(hWnd); }
+            set { SetPosition(hWnd, value); }
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY‚ğæ“¾
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚º
         /// </summary>
-        public Size GetSize()
+        public Size Size
         {
-            return GetSize(hWnd);
+            get { return GetSize(hWnd); }
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ÆƒTƒCƒY‚ğİ’è
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã¨ã‚µã‚¤ã‚ºã‚’è¨­å®š
         /// </summary>
         public void SetPositionAndSize(Point position, Size size)
         {
@@ -372,24 +426,24 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ğİ’è
-        /// </summary>
-        public void SetPosition(Point position)
-        {
-            SetPosition(hWnd, position);
-        }
-
-        /// <summary>
-        /// ƒEƒBƒ“ƒhƒEƒTƒCƒY‚Ì•ÏX‚ğ‹Ö~
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã®å¤‰æ›´ã‚’ç¦æ­¢
         /// </summary>
         public void NoResize()
         {
             NoResize(hWnd);
         }
+
+        /// <summary>
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’å‰é¢ã«ã™ã‚‹
+        /// </summary>
+        public void SetForeground()
+        {
+            SetForeground(hWnd);
+        }
     }
 
     /// <summary>
-    /// ƒEƒBƒ“ƒhƒE‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡‚Ì—áŠO
+    /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã®ä¾‹å¤–
     /// </summary>
     class WindowNotFoundException : ApplicationException
     {
@@ -409,7 +463,7 @@ namespace PSO2Utility
     }
 
     /// <summary>
-    /// ƒEƒBƒ“ƒhƒE‚Ì‘€ì‚É¸”s‚µ‚½ê‡‚Ì—áŠO
+    /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æ“ä½œã«å¤±æ•—ã—ãŸå ´åˆã®ä¾‹å¤–
     /// </summary>
     class WindowOperationException : ApplicationException
     {

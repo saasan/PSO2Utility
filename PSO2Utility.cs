@@ -8,15 +8,15 @@ namespace PSO2Utility
     public class StartUp
     {
         // http://www.atmarkit.co.jp/fdotnet/dotnettips/145winmutex/winmutex.html
-        // ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ŒÅ’è–¼
+        // ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³å›ºå®šå
         private static string mutexName = Application.ProductName;
-        // ‘½d‹N“®‚ğ–h~‚·‚éƒ~ƒ…[ƒeƒbƒNƒX
+        // å¤šé‡èµ·å‹•ã‚’é˜²æ­¢ã™ã‚‹ãƒŸãƒ¥ãƒ¼ãƒ†ãƒƒã‚¯ã‚¹
         private static System.Threading.Mutex mutexObject;
 
         [STAThread]
         public static void Main()
         {
-            // Windows 2000iNT 5.0jˆÈ~‚Ì‚İƒOƒ[ƒoƒ‹Eƒ~ƒ…[ƒeƒbƒNƒX—˜—p‰Â
+            // Windows 2000ï¼ˆNT 5.0ï¼‰ä»¥é™ã®ã¿ã‚°ãƒ­ãƒ¼ãƒãƒ«ãƒ»ãƒŸãƒ¥ãƒ¼ãƒ†ãƒƒã‚¯ã‚¹åˆ©ç”¨å¯
             OperatingSystem os = Environment.OSVersion;
 
             if ((os.Platform == PlatformID.Win32NT) && (os.Version.Major >= 5))
@@ -26,7 +26,7 @@ namespace PSO2Utility
 
             try
             {
-                // ƒ~ƒ…[ƒeƒbƒNƒX‚ğ¶¬‚·‚é
+                // ãƒŸãƒ¥ãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
                 mutexObject = new System.Threading.Mutex(false, mutexName);
             }
             catch (ApplicationException)
@@ -34,30 +34,30 @@ namespace PSO2Utility
                 return;
             }
 
-            // ƒ~ƒ…[ƒeƒbƒNƒX‚ğæ“¾‚·‚é
+            // ãƒŸãƒ¥ãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚’å–å¾—ã™ã‚‹
             if (mutexObject.WaitOne(0, false))
             {
-                // ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğÀs
+                // ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å®Ÿè¡Œ
                 using (PSO2Utility main = new PSO2Utility())
                 {
                     Application.Run();
                 }
 
-                // ƒ~ƒ…[ƒeƒbƒNƒX‚ğ‰ğ•ú‚·‚é
+                // ãƒŸãƒ¥ãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚’è§£æ”¾ã™ã‚‹
                 mutexObject.ReleaseMutex();
             }
 
-            // ƒ~ƒ…[ƒeƒbƒNƒX‚ğ”jŠü‚·‚é
+            // ãƒŸãƒ¥ãƒ¼ãƒ†ãƒƒã‚¯ã‚¹ã‚’ç ´æ£„ã™ã‚‹
             mutexObject.Close();
         }
     }
 
     public class PSO2Utility : IDisposable
     {
-        // İ’è
+        // è¨­å®š
         private PSO2UtilityOptions options = new PSO2UtilityOptions();
 
-        // ƒƒjƒ…[
+        // ãƒ¡ãƒ‹ãƒ¥ãƒ¼
         private MenuItem menuExecuteGame = new MenuItem();
         private MenuItem menuLine1 = new MenuItem();
         private MenuItem menuSystemButtons = new MenuItem();
@@ -73,65 +73,57 @@ namespace PSO2Utility
         private MenuItem menuLine5 = new MenuItem();
         private MenuItem menuExit = new MenuItem();
         private ContextMenu contextMenu = new ContextMenu();
-        // ƒ^ƒXƒNƒgƒŒƒC‚ÌƒAƒCƒRƒ“
+        // ã‚¿ã‚¹ã‚¯ãƒˆãƒ¬ã‚¤ã®ã‚¢ã‚¤ã‚³ãƒ³
         private NotifyIcon notifyIcon = new NotifyIcon();
-        // ƒEƒBƒ“ƒhƒEŠÖ˜A(ƒVƒXƒeƒ€ƒ{ƒ^ƒ“AˆÊ’u)—pƒ^ƒCƒ}
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦é–¢é€£(ã‚·ã‚¹ãƒ†ãƒ ãƒœã‚¿ãƒ³ã€ä½ç½®)ç”¨ã‚¿ã‚¤ãƒ
         private Timer windowTimer = new Timer();
 
-        // İ’èƒEƒBƒ“ƒhƒE
+        // è¨­å®šã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
         private Form formOptions;
 
-        // PSO2‚ÌƒEƒBƒ“ƒhƒEŒŸo‚ª‰‰ñ
+        // PSO2ã®ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦æ¤œå‡ºãŒåˆå›
         private bool firstTime = true;
 
         public PSO2Utility()
         {
-            // ‰Šú‰»
+            // åˆæœŸåŒ–
             InitializeComponent();
 
-            // İ’è“Ç‚İ‚İ
+            // è¨­å®šèª­ã¿è¾¼ã¿
             options = (PSO2UtilityOptions)options.Load();
 
-            // İ’è‚Ì“K—p
-            ApplyOptions();
-
-            // ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰‚ğ’Ç‰Á
-            options.Changed += new EventHandler(options_Changed);
-
-            // ƒ^ƒXƒNƒgƒŒƒC‚ÌƒAƒCƒRƒ“‚ğ•\¦
+            // ã‚¿ã‚¹ã‚¯ãƒˆãƒ¬ã‚¤ã®ã‚¢ã‚¤ã‚³ãƒ³ã‚’è¡¨ç¤º
             notifyIcon.Visible = true;
         }
 
         public void Dispose()
         {
-            // ƒ^ƒXƒNƒgƒŒƒC‚ÌƒAƒCƒRƒ“‚ğ”ñ•\¦
+            // ã‚¿ã‚¹ã‚¯ãƒˆãƒ¬ã‚¤ã®ã‚¢ã‚¤ã‚³ãƒ³ã‚’éè¡¨ç¤º
             notifyIcon.Visible = false;
-
-            // ƒCƒxƒ“ƒgƒnƒ“ƒhƒ‰‚ğíœ
-            options.Changed -= new EventHandler(options_Changed);
             
-            // İ’è•Û‘¶
+            // è¨­å®šä¿å­˜
             options.Save();
         }
 
         /// <summary>
-        /// ‰Šú‰»
+        /// åˆæœŸåŒ–
         /// </summary>
         private void InitializeComponent()
         {
-            // ƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[ì¬
+            // ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆ
             CreateMenu();
 
-            // ƒ^ƒXƒNƒgƒŒƒC‚ÌƒAƒCƒRƒ“ì¬
+            // ã‚¿ã‚¹ã‚¯ãƒˆãƒ¬ã‚¤ã®ã‚¢ã‚¤ã‚³ãƒ³ä½œæˆ
             CreateNotifyIcon();
 
-            // ƒ^ƒCƒ}[İ’è
+            // ã‚¿ã‚¤ãƒãƒ¼è¨­å®š
             windowTimer.Interval = 1000;
             windowTimer.Tick += new EventHandler(windowTimer_Tick);
+            windowTimer.Enabled = true;
         }
 
         /// <summary>
-        /// ƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[ì¬
+        /// ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ä½œæˆ
         /// </summary>
         private void CreateMenu()
         {
@@ -191,7 +183,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒ^ƒXƒNƒgƒŒƒC‚ÌƒAƒCƒRƒ“ì¬
+        /// ã‚¿ã‚¹ã‚¯ãƒˆãƒ¬ã‚¤ã®ã‚¢ã‚¤ã‚³ãƒ³ä½œæˆ
         /// </summary>
         private void CreateNotifyIcon()
         {
@@ -203,7 +195,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒAƒCƒRƒ“‚Ìƒ_ƒuƒ‹ƒNƒŠƒbƒN
+        /// ã‚¢ã‚¤ã‚³ãƒ³ã®ãƒ€ãƒ–ãƒ«ã‚¯ãƒªãƒƒã‚¯
         /// </summary>
         private void notifyIcon_DoubleClick(object sender, System.EventArgs e)
         {
@@ -214,7 +206,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒRƒ“ƒeƒLƒXƒgƒƒjƒ…[‚Ìƒ|ƒbƒvƒAƒbƒv
+        /// ã‚³ãƒ³ãƒ†ã‚­ã‚¹ãƒˆãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—
         /// </summary>
         private void contextMenu_Popup(object sender, System.EventArgs e)
         {
@@ -227,7 +219,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ÆƒTƒCƒY‚ğ•Û‘¶
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã¨ã‚µã‚¤ã‚ºã‚’ä¿å­˜
         /// </summary>
         private void menuWindowSave_Click(object sender, System.EventArgs e)
         {
@@ -235,13 +227,26 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ÆƒTƒCƒY‚ğ•œŒ³
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’å¾©å…ƒ
         /// </summary>
         private void menuWindowRestore_Click(object sender, System.EventArgs e)
         {
             try
             {
-                Window.SetPosition(options.WindowClassName, options.WindowPosition);
+                Window window = new Window(options.WindowClassName);
+
+                if (options.WindowSize.Width == 0 && options.WindowSize.Height == 0)
+                {
+                    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’å¾©å…ƒ
+                    window.Position = options.WindowPosition;
+                }
+                else
+                {
+                    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºãŒä¿å­˜ã•ã‚Œã¦ã„ãŸã‚‰ã‚µã‚¤ã‚ºã‚‚å¾©å…ƒ(æœ€å°åŒ–çŠ¶æ…‹ã‹ã‚‰æˆ»ã‚‰ãªããªã‚‹ç¾è±¡å¯¾ç­–)
+                    window.SetPositionAndSize(options.WindowPosition, options.WindowSize);
+                }
+
+                window.SetForeground();
             }
             catch (WindowNotFoundException)
             {
@@ -254,7 +259,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒQ[ƒ€‚ğ‹N“®
+        /// ã‚²ãƒ¼ãƒ ã‚’èµ·å‹•
         /// </summary>
         private void menuExecuteGame_Click(object sender, System.EventArgs e)
         {
@@ -262,7 +267,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒVƒXƒeƒ€ƒ{ƒ^ƒ“‚Ì•\¦
+        /// ã‚·ã‚¹ãƒ†ãƒ ãƒœã‚¿ãƒ³ã®è¡¨ç¤º
         /// </summary>
         private void menuSystemButtons_Click(object sender, System.EventArgs e)
         {
@@ -270,7 +275,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ©“®“I‚ÉƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ÆƒTƒCƒY‚ğ•œŒ³
+        /// è‡ªå‹•çš„ã«ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’å¾©å…ƒ
         /// </summary>
         private void menuWindowAutoRestore_Click(object sender, System.EventArgs e)
         {
@@ -279,7 +284,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// logƒtƒHƒ‹ƒ_‚ğŠJ‚­
+        /// logãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã
         /// </summary>
         private void menuOpenFolderLog_Click(object sender, System.EventArgs e)
         {
@@ -287,7 +292,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// bmpƒtƒHƒ‹ƒ_‚ğŠJ‚­
+        /// bmpãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã
         /// </summary>
         private void menuOpenFolderBmp_Click(object sender, System.EventArgs e)
         {
@@ -295,7 +300,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// İ’è
+        /// è¨­å®š
         /// </summary>
         private void menuOptions_Click(object sender, System.EventArgs e)
         {
@@ -303,7 +308,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// I—¹
+        /// çµ‚äº†
         /// </summary>
         private void menuExit_Click(object sender, System.EventArgs e)
         {
@@ -317,17 +322,25 @@ namespace PSO2Utility
                 Window window = new Window(options.WindowClassName);
 
                 if (!window.Visible) return;
+
+                // ã‚·ã‚¹ãƒ†ãƒ ãƒœã‚¿ãƒ³ã®è¡¨ç¤º(åˆæ¤œå‡ºæ™‚ã®ã¿ã ã¨ã¡ã‚ƒã‚“ã¨è¡¨ç¤ºã•ã‚Œãªã„ã®ã§æ¯å›ã‚„ã‚‹)
                 if (options.SystemButtonsEnabled) window.AddSystemButton();
 
-                if (firstTime && options.WindowAutoRestoreEnabled)
+                // åˆæ¤œå‡ºã®å ´åˆ
+                if (firstTime)
                 {
-                    window.SetPosition(options.WindowPosition);
+                    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºã‚’ä¿å­˜(æœ€å°åŒ–çŠ¶æ…‹ã‹ã‚‰æˆ»ã‚‰ãªããªã‚‹ç¾è±¡å¯¾ç­–)
+                    options.WindowSize = window.Size;
+
+                    // è‡ªå‹•çš„ã«ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’å¾©å…ƒ
+                    if (options.WindowAutoRestoreEnabled) window.Position = options.WindowPosition;
+
                     firstTime = false;
                 }
             }
             catch (WindowNotFoundException)
             {
-                // ƒEƒBƒ“ƒhƒE‚ª–³‚­‚È‚Á‚Ä‚¢‚½‚çAŸ‰ñ‹N“®‚Ì‚½‚ß‚Étrue‚É–ß‚·
+                // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒç„¡ããªã£ã¦ã„ãŸã‚‰ã€æ¬¡å›èµ·å‹•æ™‚ã®ãŸã‚ã«trueã«æˆ»ã™
                 firstTime = true;
             }
             catch (WindowOperationException)
@@ -337,7 +350,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ğ•Û‘¶
+        /// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’ä¿å­˜
         /// </summary>
         private void SaveWindow()
         {
@@ -358,26 +371,26 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// İ’èƒEƒBƒ“ƒhƒE•\¦
+        /// è¨­å®šã‚¦ã‚£ãƒ³ãƒ‰ã‚¦è¡¨ç¤º
         /// </summary>
         private void ShowOptions()
         {
-            // ‚·‚Å‚É•\¦‚³‚ê‚Ä‚¢‚é‚©H
+            // ã™ã§ã«è¡¨ç¤ºã•ã‚Œã¦ã„ã‚‹ã‹ï¼Ÿ
             if (formOptions == null || formOptions.IsDisposed)
             {
-                // ƒƒjƒ…[‚Ì–³Œø‰»
+                // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®ç„¡åŠ¹åŒ–
                 foreach (MenuItem menu in contextMenu.MenuItems)
                 {
                     if (!menu.Equals(menuExit)) menu.Enabled = false;
                 }
 
-                // İ’èƒEƒBƒ“ƒhƒE•\¦
+                // è¨­å®šã‚¦ã‚£ãƒ³ãƒ‰ã‚¦è¡¨ç¤º
                 using (formOptions = new FormOptions(options))
                 {
                     formOptions.ShowDialog();
                 }
 
-                // ƒƒjƒ…[‚Ì—LŒø‰»
+                // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®æœ‰åŠ¹åŒ–
                 foreach (MenuItem menu in contextMenu.MenuItems)
                 {
                     if (!menu.Equals(menuExit)) menu.Enabled = true;
@@ -385,13 +398,13 @@ namespace PSO2Utility
             }
             else
             {
-                // ƒAƒNƒeƒBƒu‚É‚·‚é
+                // ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ã™ã‚‹
                 formOptions.Activate();
             }
         }
 
         /// <summary>
-        /// ƒtƒHƒ‹ƒ_‚ğŠJ‚­
+        /// ãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ã
         /// </summary>
         private void OpenFolder(string path)
         {
@@ -409,7 +422,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// ƒQ[ƒ€‚ğÀs‚·‚é
+        /// ã‚²ãƒ¼ãƒ ã‚’å®Ÿè¡Œã™ã‚‹
         /// </summary>
         private void ExecuteGame()
         {
@@ -449,23 +462,7 @@ namespace PSO2Utility
         }
 
         /// <summary>
-        /// İ’è‚ª•ÏX‚³‚ê‚½ƒCƒxƒ“ƒg
-        /// </summary>
-        private void options_Changed(object sender, EventArgs e)
-        {
-            ApplyOptions();
-        }
-
-        /// <summary>
-        /// İ’è‚Ì“K—p
-        /// </summary>
-        private void ApplyOptions()
-        {
-            windowTimer.Enabled = (options.SystemButtonsEnabled || options.WindowAutoRestoreEnabled);
-        }
-
-        /// <summary>
-        /// ƒoƒ‹[ƒ“ƒ`ƒbƒv‚Ì•\¦
+        /// ãƒãƒ«ãƒ¼ãƒ³ãƒãƒƒãƒ—ã®è¡¨ç¤º
         /// </summary>
         private void ShowBalloonTip(string title, string text, ToolTipIcon icon, int timeout)
         {
