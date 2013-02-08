@@ -31,9 +31,16 @@ PSO2Utility.exeを起動するとアイコンがタスクトレイに表示さ�
 * Windows XP : %UserProfile%\Application Data\s2works\PSO2Utility
 * Windows Vista/7 : %UserProfile%\AppData\Roaming\s2works\PSO2Utility
 
+既知の不具合
+------------
+
+PSO2 のウィンドウを最小化後、元に戻らなくなる場合がある
+: タスクトレイにある PSO2Utility のアイコンを右クリックし、
+  「ウィンドウの位置を復元」を選択して下さい。
+
 奥付
 ----
 
 saasan  
 http://s2works.homeunix.net/  
-Twitter : saasan
+Twitter : [saasan](https://twitter.com/saasan)
