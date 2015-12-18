@@ -1,19 +1,21 @@
 PSO2Utility
 ===========
 
-ファンタシースターオンライン2用ユーティリティ
-
-機能
-----
+ファンタシースターオンライン2用ユーティリティ。
+主な機能は以下の通り。
 
 1. UACを経由せずにPSO2を起動
 2. PSO2のウィンドウに最小化ボタンを表示
-3. PSO2のウィンドウ位置を保存、復元
+3. PSO2のウィンドウ位置を保存、自動復元
 
 動作環境
 --------
 
-Microsoft .NET Framework 4 がインストールされたWindows XP/Vista/7で動くはず。
+Windows 7 Home Premium (64bit) で動作を確認してます。
+起動しない場合は
+[.NET Framework 4 Client Profile]
+(http://www.microsoft.com/ja-jp/net/netfx4/download.aspx)
+を入れてみて下さい。
 
 使い方
 ------
@@ -43,5 +45,5 @@ PSO2Utility.exeを起動するとアイコンがタスクトレイに表示さ�
 ----
 
 saasan  
-http://s2works.homeunix.net/  
+http://saasan.github.io/  
 Twitter : [saasan](https://twitter.com/saasan)
