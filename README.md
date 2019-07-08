@@ -9,6 +9,8 @@
 
 ## ダウンロード
 
+[PSO2Utility-v1.0.zip](https://github.com/saasan/PSO2Utility/releases/latest/download/PSO2Utility-v1.0.zip)
+
 ## 動作環境
 
 Windows 10 Pro (64bit) で動作を確認してます。
