@@ -37,7 +37,7 @@ namespace PSO2Utility
         {
             // マイドキュメント内のPSO2フォルダとPSO2のウィンドウクラス名
             myDocumentsFolder = @"SEGA\PHANTASYSTARONLINE2";
-            windowClassName = "Phantasy Star Online 2";
+            windowClassName = "PHANTASY STAR ONLINE 2 NEW GENESIS";
 
             // マイドキュメントフォルダのパス
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

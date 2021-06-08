@@ -447,6 +447,7 @@ namespace PSO2Utility
             System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo();
             psi.FileName = options.GamePath;
             psi.Verb = "RunAs";
+            psi.WorkingDirectory = options.GameFolder + @"\pso2_bin";
             try
             {
                 System.Diagnostics.Process.Start(psi);
