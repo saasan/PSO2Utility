@@ -120,6 +120,9 @@
   <data name="AlreadyStarted" xml:space="preserve">
     <value>PSO2 has already started.</value>
   </data>
+  <data name="AutoExecuteGame" xml:space="preserve">
+    <value>A&amp;uto Start PSO2</value>
+  </data>
   <data name="AutoRestoreWindowPosition" xml:space="preserve">
     <value>&amp;Auto Restore Window Position</value>
   </data>

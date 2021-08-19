@@ -61,6 +61,7 @@ namespace PSO2Utility
         private MenuItem menuExecuteGame = new MenuItem();
         private MenuItem menuLine1 = new MenuItem();
         private MenuItem menuSystemButtons = new MenuItem();
+        private MenuItem menuAutoExecuteGame = new MenuItem();
         private MenuItem menuWindowAutoRestore = new MenuItem();
         private MenuItem menuLine2 = new MenuItem();
         private MenuItem menuWindowSave = new MenuItem();
@@ -95,6 +96,12 @@ namespace PSO2Utility
 
             // タスクトレイのアイコンを表示
             notifyIcon.Visible = true;
+
+            // 起動時にPSO2を自動起動
+            if (options.AutoExecuteGameEnabled && !String.IsNullOrEmpty(options.GamePath) && File.Exists(options.GamePath) && !Window.Exists(options.WindowClassName))
+            {
+                ExecuteGame();
+            }
         }
 
         public void Dispose()
@@ -139,6 +146,10 @@ namespace PSO2Utility
             menuSystemButtons.Text = Properties.Resources.ShowSystemButtons;
             menuSystemButtons.Click += new EventHandler(this.menuSystemButtons_Click);
             contextMenu.MenuItems.Add(menuSystemButtons);
+
+            menuAutoExecuteGame.Text = Properties.Resources.AutoExecuteGame;
+            menuAutoExecuteGame.Click += new EventHandler(this.menuAutoExecuteGame_Click);
+            contextMenu.MenuItems.Add(menuAutoExecuteGame);
 
             menuWindowAutoRestore.Text = Properties.Resources.AutoRestoreWindowPosition;
             menuWindowAutoRestore.Click += new EventHandler(this.menuWindowAutoRestore_Click);
@@ -222,6 +233,7 @@ namespace PSO2Utility
         {
             menuExecuteGame.Enabled = (!String.IsNullOrEmpty(options.GamePath) && File.Exists(options.GamePath) && !Window.Exists(options.WindowClassName));
             menuSystemButtons.Checked = options.SystemButtonsEnabled;
+            menuAutoExecuteGame.Checked = options.AutoExecuteGameEnabled;
             menuWindowAutoRestore.Checked = options.WindowAutoRestoreEnabled;
             menuWindowSave.Enabled = menuWindowRestore.Enabled = Window.Exists(options.WindowClassName);
             menuOpenFolderLog.Enabled = Directory.Exists(options.LogFolder);
@@ -272,6 +284,14 @@ namespace PSO2Utility
         private void menuSystemButtons_Click(object sender, System.EventArgs e)
         {
             options.SystemButtonsEnabled = !options.SystemButtonsEnabled;
+        }
+
+        /// <summary>
+        /// 起動時にPSO2を自動起動
+        /// </summary>
+        private void menuAutoExecuteGame_Click(object sender, System.EventArgs e)
+        {
+            options.AutoExecuteGameEnabled = !options.AutoExecuteGameEnabled;
         }
 
         /// <summary>

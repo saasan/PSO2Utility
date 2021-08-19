@@ -120,6 +120,9 @@
   <data name="AlreadyStarted" xml:space="preserve">
     <value>PSO2は既に起動しています。</value>
   </data>
+  <data name="AutoExecuteGame" xml:space="preserve">
+    <value>起動時にPSO2を自動起動(&amp;U)</value>
+  </data>
   <data name="AutoRestoreWindowPosition" xml:space="preserve">
     <value>自動的にウィンドウの位置を復元(&amp;A)</value>
   </data>

@@ -25,6 +25,8 @@ namespace PSO2Utility
         private string gameFolder = @"C:\Program Files (x86)\SEGA\PHANTASYSTARONLINE2";
         /// <summary>システムボタンON/OFF</summary>
         private bool systemButtonsEnabled = false;
+        /// <summary>起動時にPSO2を自動起動</summary>
+        private bool autoExecuteGameEnabled = false;
         /// <summary>自動的にウィンドウの位置を復元ON/OFF</summary>
         private bool windowAutoRestoreEnabled = false;
 
@@ -73,6 +75,20 @@ namespace PSO2Utility
             set
             {
                 systemButtonsEnabled = value;
+                OnChanged(EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// 起動時にPSO2を自動起動
+        /// </summary>
+        [GlobalizedCategory("General")]
+        public bool AutoExecuteGameEnabled
+        {
+            get { return autoExecuteGameEnabled; }
+            set
+            {
+                autoExecuteGameEnabled = value;
                 OnChanged(EventArgs.Empty);
             }
         }
