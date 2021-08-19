@@ -147,14 +147,6 @@ namespace PSO2Utility
             style |= (WindowStyleFlags.WS_SYSMENU | WindowStyleFlags.WS_MINIMIZEBOX);
 
             SetWindowLong(hWnd, GetWindowLongFlags.GWL_STYLE, (int)style);
-
-            // ウィンドウを更新
-            SetWindowPos(hWnd, IntPtr.Zero, 0, 0, 0, 0,
-                    SetWindowPosFlags.SWP_NOMOVE |
-                    SetWindowPosFlags.SWP_NOSIZE |
-                    SetWindowPosFlags.SWP_NOZORDER |
-                    SetWindowPosFlags.SWP_FRAMECHANGED |
-                    SetWindowPosFlags.SWP_NOACTIVATE);
         }
 
         /// <summary>

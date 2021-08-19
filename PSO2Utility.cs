@@ -235,18 +235,8 @@ namespace PSO2Utility
             {
                 Window window = new Window(options.WindowClassName);
 
-                if (options.WindowSize.Width == 0 && options.WindowSize.Height == 0)
-                {
-                    // ウィンドウの位置を復元
-                    window.Position = options.WindowPosition;
-                }
-                else
-                {
-                    // ウィンドウのサイズが保存されていたらサイズも復元(最小化状態から戻らなくなる現象対策)
-                    window.SetPositionAndSize(options.WindowPosition, options.WindowSize);
-                }
-
-                window.SetForeground();
+                // ウィンドウの位置を復元
+                window.Position = options.WindowPosition;
             }
             catch (WindowNotFoundException)
             {
@@ -329,9 +319,6 @@ namespace PSO2Utility
                 // 初検出の場合
                 if (firstTime)
                 {
-                    // ウィンドウサイズを保存(最小化状態から戻らなくなる現象対策)
-                    options.WindowSize = window.Size;
-
                     // 自動的にウィンドウの位置を復元
                     if (options.WindowAutoRestoreEnabled) window.Position = options.WindowPosition;
 
