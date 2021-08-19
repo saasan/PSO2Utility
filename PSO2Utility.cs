@@ -91,6 +91,7 @@ namespace PSO2Utility
 
             // 設定読み込み
             options = (PSO2UtilityOptions)options.Load();
+            options.Changed += new EventHandler(this.options_Changed);
 
             // タスクトレイのアイコンを表示
             notifyIcon.Visible = true;
@@ -180,6 +181,15 @@ namespace PSO2Utility
             contextMenu.MenuItems.Add(menuExit);
 
             contextMenu.Popup += new EventHandler(contextMenu_Popup);
+        }
+
+        /// <summary>
+        /// 設定の変更
+        /// </summary>
+        private void options_Changed(object sender, System.EventArgs e)
+        {
+            // 設定保存
+            options.Save();
         }
 
         /// <summary>

@@ -57,7 +57,10 @@ namespace PSO2Utility
         public string GameFolder
         {
             get { return gameFolder; }
-            set { gameFolder = value; }
+            set {
+                gameFolder = value;
+                OnChanged(EventArgs.Empty);
+            }
         }
 
         /// <summary>
@@ -95,7 +98,10 @@ namespace PSO2Utility
         public Point WindowPosition
         {
             get { return windowPosition; }
-            set { windowPosition = value; }
+            set {
+                windowPosition = value;
+                OnChanged(EventArgs.Empty);
+            }
         }
 
         /// <summary>
