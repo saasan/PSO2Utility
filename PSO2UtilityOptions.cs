@@ -22,7 +22,7 @@ namespace PSO2Utility
         private string picturesFolder;
 
         /// <summary>PSO2のフォルダ名</summary>
-        private string gameFolder;
+        private string gameFolder = @"C:\Program Files (x86)\SEGA\PHANTASYSTARONLINE2";
         /// <summary>システムボタンON/OFF</summary>
         private bool systemButtonsEnabled = false;
         /// <summary>自動的にウィンドウの位置を復元ON/OFF</summary>
@@ -47,8 +47,6 @@ namespace PSO2Utility
             // picturesフォルダ名
             picturesFolder = myDocuments + Path.DirectorySeparatorChar +
                 myDocumentsFolder + Path.DirectorySeparatorChar + "pictures";
-
-            gameFolder = String.Empty;
         }
 
         /// <summary>
