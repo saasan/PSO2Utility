@@ -9,7 +9,7 @@
 
 ## ダウンロード
 
-[PSO2Utility-v1.1.zip](https://github.com/saasan/PSO2Utility/releases/latest/download/PSO2Utility-v1.1.zip)
+[PSO2Utility-v1.2.zip](https://github.com/saasan/PSO2Utility/releases/latest/download/PSO2Utility-v1.2.zip)
 
 ## 動作環境
 
@@ -30,9 +30,3 @@ PSO2Utility.exeを起動するとアイコンがタスクトレイに表示さ�
 設定ファイルは以下の場所に保存されます。
 
     %UserProfile%\AppData\Roaming\s2works\PSO2Utility
-
-## 既知の不具合と対策
-
-### PSO2 のウィンドウを最小化後、元に戻らなくなる場合がある
-
-タスクトレイにある PSO2Utility のアイコンを右クリックし、「ウィンドウの位置を復元」を選択して下さい。
